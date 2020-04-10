@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danie Goldfine's MemeGen</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body onload="init()">
+
+
+    <header class="container header-container flex justify-space-between align-items-center">
+        <div class="logo">LOGO</div>
+        <section class="header-buttons">
+            <a class="button button-gallery selected" onclick="togglePages()">Gallery</a>
+            <a class="button button-about">About</a>
+        </section>
+    </header>
+
+    <main class="container main-container-gallery">
+
+        <section class="gallery-container">
+            <div class="gellery-filter flex align-items-center justify-space-between">
+                <div class="search-bar flex">
+                    <input class="input-search" type="text" placeholder="Search" name="search">
+                </div>
+                <div class="search-word flex align-items-center justify-space-even">
+                    <p>word1</p>
+                    <p>word2</p>
+                    <p>word3</p>
+                    <p>word4</p>
+                    <p>word5</p>
+                    <p>word6</p>
+                </div>
+                <a class="button button-more align-self-center">More</a>
+            </div>
+            <div class="gallery-grid-container">
+                <div class="imgs-grid"></div>
+            </div>
+        </section>
+    </main>
+
+
+    <main class="editor-container flex justify-space-even align-items-center display-none">
+        <section class="canvas-container flex">
+            <canvas class="align-self-center" id="canvas" width="476px" height="546px" onmousedown="onCanvasClick(event)"></canvas>
+        </section>
+        <section class="editor flex column align-items-center">
+            <input class="text-input" type="text" placeholder="Edit Text" onkeyup="onDrawText(value, event, this)" onblur="onTextInputBlur(this)">
+            <div class="text-input-block"></div>
+            <div class="edit-line-container flex">
+                <div class="edit-line-button button-switch-lines" onclick="onSwitchLine()">
+                    <svg x="0" y="0" viewBox="0 0 440.4 377.9">
+                        <path
+                            d="M290.3 0v243.9h-46.1c-21.4 0-32.1 25.9-17 41l86.1 86.1c9.4 9.4 24.6 9.4 33.9 0l86.1-86.1c15.1-15.1 4.4-41-17-41h-46.1V0h-79.9zM150.1 377.9V134.1h46.1c21.4 0 32.1-25.9 17-41L127.1 7c-9.4-9.4-24.6-9.4-33.9 0L7.1 93.1c-15.1 15.1-4.4 41 17 41h46.1V378h79.9z" />
+                    </svg>
+                </div>
+                <div class="edit-line-button button-add-line" onclick="onAddTextLine()">
+                    <svg viewBox="0 0 448 448">
+                        <path
+                            d="M416 176H272V32c0-17.7-14.3-32-32-32h-32c-17.7 0-32 14.3-32 32v144H32c-17.7 0-32 14.3-32 32v32c0 17.7 14.3 32 32 32h144v144c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V272h144c17.7 0 32-14.3 32-32v-32c0-17.7-14.3-32-32-32z"
+                            fill="#fff" />
+                    </svg>
+                </div>
+                <div class="edit-line-button button-delete-line" onclick="onDeleteLine()">
+                    <svg viewBox="0 0 448 512">
+                        <path
+                            d="M432 32H312l-9.4-18.7C298.5 5.1 290.2 0 281.1 0H166.8c-9.1 0-17.4 5.1-21.4 13.3L136 32H16C7.2 32 0 39.2 0 48v32c0 8.8 7.2 16 16 16h416c8.8 0 16-7.2 16-16V48c0-8.8-7.2-16-16-16zM53.2 467c1.6 25.3 22.6 45 47.9 45h245.8c25.3 0 46.3-19.7 47.9-45L416 128H32l21.2 339z"
+                            fill="#fff" />
+                    </svg>
+                </div>
+            </div>
+            <div class="edit-text-grid-container flex justify-space-around align-items-center">
+                <div class="edit-text-grid">
+                    <div class="button-edit-text increase-font" onclick="onChangeFontSize('up')">
+                        <img src="icns/icn-a-plus.png" alt="increase-font">
+                    </div>
+                    <div class="button-edit-text decrease-font" onclick="onChangeFontSize('down')">
+                        <img src="icns/icn-a-minus.png" alt="decrease-font">
+                    </div>
+                    <div class="button-edit-text align-left">
+                        <img src="icns/icn-align-left.png" alt="align-left">
+                    </div>
+                    <div class="button-edit-text align-center">
+                        <img src="icns/icn-align-center.png" alt="align-center">
+                    </div>
+                    <div class="button-edit-text align-right">
+                        <img src="icns/icn-align-right.png" alt="align-right">
+                    </div>
+                    <select class="button-edit-text select-font" onchange="onChangeFont(value)">
+                        <option value="impact">Impact</option>
+                        <option value="helvetica">Helvetica</option>
+                        <option value="ariel">Ariel</option>
+                    </select>
+                    <div class="color-container">
+                        <div class="button-edit-text color-icn">
+                            <img src="icns/icn-stroke-color.png" alt="underline">
+                            <input type="color" class="stroke-color color-input" value="#000000">
+                        </div>
+                    </div>
+                    <div class="color-container">
+                        <div class="button-edit-text color-icn">
+                            <img src="icns/icn-color-palette.png" alt="tex">
+                            <input type="color" class="text-color color-input" value="#ffffff">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stickers-container flex justify-space-between align-items-center" contenteditable="true">
+                <div class="left-arrow">
+                    <svg viewBox="0 0 192 512">
+                        <path
+                            d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z" />
+                    </svg>
+                </div>
+                <img src="stickers/2.png" alt="sticker">
+                <img src="stickers/5.png" alt="sticker">
+                <img src="stickers/11.png" alt="sticker">
+                <img src="stickers/9.png" alt="sticker">
+                <div class="right-arrow">
+                    <svg viewBox="0 0 192 512">
+                        <path
+                            d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="save-buttons-container flex justify-space-between">
+                <button class="save-button share flex align-items-center">
+                    <svg viewBox="0 0 96 96">
+                        <path
+                            d="M67.5 18c-5.1 0-9.3 4.2-9.3 9.3 0 .5.1 1.1.2 1.6l-23 12.9c-1.7-1.8-4.1-3-6.8-3-5.1 0-9.3 4.1-9.3 9.3 0 5.1 4.1 9.3 9.3 9.3 2.7 0 5.2-1.2 6.9-3.1l22.8 13.4c0 .4-.1.7-.1 1.1 0 5.1 4.1 9.3 9.3 9.3 5.1 0 9.3-4.1 9.3-9.3 0-5.1-4.1-9.3-9.3-9.3-2.8 0-5.4 1.3-7.1 3.3L37.7 49.4c.1-.4.1-.9.1-1.3 0-.5 0-1-.1-1.5l23.1-13c1.7 1.8 4.1 3 6.8 3 5.1 0 9.3-4.1 9.3-9.3-.1-5.1-4.3-9.3-9.4-9.3z"
+                            fill="#ffffff" />
+                    </svg>
+                    Share
+                </button>
+                <button class="save-button download flex align-items-center">
+                    <svg viewBox="0 0 512 512">
+                        <path 
+                            d="M382.56 233.376A15.96 15.96 0 00368 224h-64V16c0-8.832-7.168-16-16-16h-64c-8.832 0-16 7.168-16 16v208h-64a16.013 16.013 0 00-14.56 9.376c-2.624 5.728-1.6 12.416 2.528 17.152l112 128A15.946 15.946 0 00256 384c4.608 0 8.992-2.016 12.032-5.472l112-128c4.16-4.704 5.12-11.424 2.528-17.152z"
+                            fill="#ffffff" />
+                        <path
+                            d="M432 352v96H80v-96H16v128c0 17.696 14.336 32 32 32h416c17.696 0 32-14.304 32-32V352h-64z"
+                            fill="#ffffff" />
+                    </svg>
+                    Download
+                </button>
+            </div>
+        </section>
+    </main>
+
+
+    <script src="js/util.js"></script>
+    <script src="js/meme-storage.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/meme-controller.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,444 @@
+/* FONTS *****************************************************************/
+
+@font-face {
+    font-family: poppinslight;
+    src: url(/fonts/Poppins-Light.ttf);
+    font-weight: lighter;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: poppinsregular;
+    src: url(/fonts/Poppins-Regular.ttf);
+    font-style: normal;
+}
+
+@font-face {
+    font-family: poppinsmedium;
+    src: url(/fonts/Poppins-Medium.ttf);
+    font-weight: medium;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: poppinssemibold;
+    src: url(/fonts/Poppins-SemiBold.ttf);
+    font-style: normal;
+}
+
+@font-face {
+    font-family: poppinsbolder;
+    src: url(/fonts/Poppins-ExtraBold.ttf);
+    font-weight: bolder;
+    font-style: normal;
+}
+
+/* BASIC *****************************************************************/
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: poppinsmedium;
+    max-width: 100%;
+    font-size: 1.25rem;
+}
+
+body {
+    background-color: #22252c;
+}
+
+a {
+    margin: none;
+    color: white;
+}
+
+p {
+    color: white;
+    font-family: poppins;
+    font-weight: lighter;
+}
+
+.button {
+    cursor: pointer;
+}
+
+/* LAYOUT *****************************************************************/
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* HEADER *****************************************************************/
+
+.header-container {
+    background-image: linear-gradient(to right, #0f9ab4, #30bc72);
+    margin-top: 15px;
+    height: 73px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+}
+
+.header-container .header-buttons {
+    padding-inline-end: 247px;
+    /* margin-inline-start: 43px; */
+}
+
+.header-container .header-buttons a {
+    margin-inline-start: 23px;
+    padding: 5px 20px;
+    transition: .2s;
+}
+
+.header-container .logo {
+    padding-inline-start: 82px;
+    color: white;
+}
+
+.selected {
+    color: #30bc72;
+    background-color: white;
+    width: 117px;
+    height: 40px;
+    border-radius: 999px;
+    box-shadow: 0px 3px 3px 0px #0000002e;
+}
+
+/* GALLERY CONTAINER *****************************************************************/
+
+.gallery-container {
+    background-color: #383b42;
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 1243px;
+}
+
+/* GALLERY FILTER *****************************************************************/
+
+.gellery-filter {
+    padding-top: 25px;
+    padding-bottom: 20px;
+}
+
+.gellery-filter .search-bar {
+    height: 58px;
+}
+
+.gellery-filter .search-bar .input-search {
+    background-color: #22252c;
+    height: 58px;
+    width: 542px;
+    border-radius: 999px;
+    margin-inline-start: 25px;
+    border: none;
+    font-size: 1rem;
+    color: white;
+    font-family: poppinslight;
+    padding-inline-start: 52px;
+    background-image: url("/icns/icn-search.svg");
+    background-repeat: no-repeat;
+    background-position-x: 460px;
+    background-size: 40px;
+    background-position-y: center;
+}
+
+.gellery-filter a {
+    margin-inline-end: 16px;
+}
+
+.gellery-filter .search-word {
+    width: 535px;
+    height: 50px;
+    background-color: #87898d;
+    border-radius: 999px;
+    font-size: .85rem;
+}
+
+.gellery-filter a {
+    font-family: poppinslight;
+    background-image: linear-gradient(to right, #0f9ab4, #30bc72);
+    padding: 3px 23px;
+    border-radius: 999px;
+    box-shadow: 0px 3px 3px 0px #0000002e;
+}
+
+/* GALLERY GRID *****************************************************************/
+
+.gallery-grid-container .imgs-grid img {
+    border-radius: 15px;
+    box-shadow: 0px 3px 9px #000000ab;
+    width: 100%;
+    transition: .2s;
+}
+
+.imgs-grid img:hover {
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.gallery-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imgs-grid {
+    display: grid;
+    grid-template-rows: repeat(5, 200px);
+    grid-template-columns: repeat(5, 200px);
+    grid-gap: 30px;
+}
+
+/* *********************************************************************************************************************************** */
+
+/* EDITOR CONTAINER *****************************************************************/
+
+
+/* EDITOR *****************************************************************/
+
+.editor-container {
+    height: 560px;
+    width: 70vw;
+    margin: 0 auto;
+    background-image: url("/layout-imgs/editor-bg.png");
+    background-repeat: no-repeat;
+}
+
+.editor-container .editor {
+    background-color: #383b42;
+    width: 527px;
+    height: 546px;
+    border-radius: 25px;
+    padding-top: 24px;
+}
+
+.editor-container .text-input {
+    border: none;
+    border-radius: 999px;
+    box-shadow: inset 0 5px white, inset 0 -5px #00000017;
+    text-align: center;
+    background-color: #ebeef3;
+    width: 445px;
+    height: 60px;
+    font-family: poppinsmedium;
+    font-size: 1.25rem;
+    color: #3d3d3d;
+    margin-bottom: 14px;
+}
+
+.editor-container .text-input-block {
+    position: absolute;
+    border-radius: 999px;
+    background-color: #ffffff00;
+    width: 445px;
+    height: 60px;
+    margin-bottom: 14px;
+}
+
+.text-input::placeholder {
+    color: #3d3d3d;
+}
+
+.edit-line-container {
+    margin-bottom: 24px;
+}
+
+.edit-line-button {
+    width: 57px;
+    height: 57px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    margin: 0 11px;
+    box-shadow: inset 0px 5px #ffffff42, inset 0px -5px #00000036;
+    cursor: pointer;
+}
+
+.edit-line-container .button-switch-lines {
+    background-image: linear-gradient(#1fa1c2, #5bbfd8);
+}
+
+.edit-line-container .button-add-line {
+    background-image: linear-gradient(#39bc4d, #41e45a);
+}
+
+.edit-line-container .button-delete-line {
+    background-image: linear-gradient(#ea4736, #d32337);
+}
+
+.edit-line-button path {
+    fill: white;
+    width: 10px;
+}
+
+.edit-line-button svg {
+    height: 28px;
+    filter: drop-shadow( 0 3px 0px rgba(0, 0, 0, 0.418));
+}
+
+.edit-text-grid-container {
+    background-color: #19a59f;
+    height: 150px;
+    width: 445px;
+    border-radius: 12px;
+    margin-bottom: 23px;
+}
+
+.edit-text-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    grid-template-rows: repeat(2, 50px);
+    grid-column-gap: 35px;
+    grid-row-gap: 20px;
+}
+
+.edit-text-grid .button-edit-text {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px #00000042;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-font {
+    grid-column: 1/4;
+    font-family: poppinssemibold;
+    font-size: 1.20rem;
+    text-transform: uppercase;
+    padding-inline-start: 34px;
+    color: #22252c;
+}
+
+.color-container .color-icn {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}
+
+.color-input {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.stickers-container {
+    background-color: white;
+    border-radius: 999px;
+    height: 90px;
+    width: 445px;
+    margin-bottom: 27px;
+}
+
+.stickers-container .sticker {
+    background-color: violet;
+    width: 85px;
+    height: 85px;
+}
+
+.stickers-container img {
+    max-width: 80px;
+    max-height: 80px;
+    filter: drop-shadow( 1px 1px 1px rgba(0, 0, 0, 0.657));
+    cursor: pointer;
+}
+
+.stickers-container svg {
+    height: 25px;
+    margin-inline-end: 20px;
+    cursor: pointer;
+}
+
+.stickers-container .left-arrow {
+    transform: scaleX(-1);
+}
+
+.save-buttons-container {
+    width: 445px;
+}
+
+.save-button {
+    font-family: poppinsmedium;
+    font-size: 1rem;
+    color: white;
+    height: 56px;
+    width: 212px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: inset 0px 5px #ffffff42, inset 0px -5px #0000006c;
+    cursor: pointer;
+}
+
+.share {
+    background-color: #1e7cd3;
+}
+
+.download {
+    background-color: #8f44bb;
+}
+
+.save-button svg {
+    height: 22px;
+    margin-inline-end: 20px;
+    margin-inline-start: 22px;
+}
+
+.share svg {
+    height: 40px;
+    margin-inline-end: 20px;
+    margin-inline-start: 22px;
+}
+
+/* CANVAS *****************************************************************/
+
+#canvas {
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0 0 0 7px #383b428e;
+}
+
+/* FLEX *****************************************************************/
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-space-between {
+    justify-content: space-between;
+}
+
+.justify-space-even {
+    justify-content: space-evenly;
+}
+
+.justify-space-around {
+    justify-content: space-around;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-self-center {
+    align-self: center;
+}
+
+/* HELPERS *****************************************************************/
+
+.display-none {
+    display: none;
+}
