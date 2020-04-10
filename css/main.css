@@ -336,13 +336,11 @@ p {
     margin-bottom: 27px;
 }
 
-.stickers-container .sticker {
-    background-color: violet;
-    width: 85px;
-    height: 85px;
+.stickers-container .stickers-section {
+    width: 380px;
 }
 
-.stickers-container img {
+.stickers-container .stickers-section img {
     max-width: 80px;
     max-height: 80px;
     filter: drop-shadow( 1px 1px 1px rgba(0, 0, 0, 0.657));

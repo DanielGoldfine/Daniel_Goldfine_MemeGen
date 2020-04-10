@@ -101,22 +101,42 @@ var gImgs = [{
     keywords: ['movies']
 }];
 
+var gStckrs = [];
+var gStckrsIdx = 0;
+var gStckrsDspl = [];
 var gMeme;
 
 
 //******************************************************************************************************************************* */
 
 function init() {
+    createGStckrs(36);
+    initStckrsDispl(gStckrs);
     renderGallery();
+    renderStickers();
+}
+
+function createGStckrs(num) {
+for (let i = 0 ; i < num ; i++) {
+    gStckrs.push({
+            id: makeId(3),
+            url: `.stickers/${i+1}.png`,
+        });
+};
+}
+
+function initStckrsDispl(stckrs) {
+    for (let i = 0 ; i < 4 ; i++) {
+        gStckrsDspl.push(stckrs[i]);
+    }
 }
 
 function getImgs() {
     return gImgs
 }
 
-function getImgIdx(imgId) {
-    const imgIdx = gImgs.findIndex(img => img.id === imgId)
-    return imgIdx;
+function getStckrsDspl() {
+    return gStckrsDspl;
 }
 
 function getMemeObj() {
@@ -128,7 +148,8 @@ function createMemeObj(imgId) {
     gMeme = {
         selectedImgId: imgId,
         selectedLineIdx: null,
-        lines: []
+        lines: [],
+        stckrs: []
     };
 }
 
@@ -153,6 +174,44 @@ function updateFontSize(diff) {
 
 function updateFont(font) {
     gMeme.lines[gMeme.selectedLineIdx].font = font;
+}
+
+function updateTextAlign(align) {
+    gMeme.lines[gMeme.selectedLineIdx].align = align;
+}
+
+function updateColor(val, color) {
+    if (val === 'stroke') gMeme.lines[gMeme.selectedLineIdx].stroke = color;
+    else gMeme.lines[gMeme.selectedLineIdx].fill = color;
+}
+
+function updateLinePos(line, diffX, diffY) {
+    line.posX += diffX;
+    line.posY += diffY;
+}
+
+function scrollStickers(direction) {
+
+    gStckrsDspl = [];
+
+    if (direction === 'right') {
+        gStckrsIdx++
+        if (gStckrsIdx === gStckrs.length) gStckrsIdx = 0;
+        for (var i = gStckrsIdx ; i < 4 + gStckrsIdx ; i++) {
+            var idx = i;
+            if (i > gStckrs.length - 1) idx -= (gStckrs.length);
+            gStckrsDspl.push(gStckrs[idx]);
+        }
+    }
+    if (direction === 'left') {
+        gStckrsIdx--;
+        if (gStckrsIdx === -1) gStckrsIdx = gStckrs.length - 1;
+        for (var i = gStckrsIdx ; i < 4 + gStckrsIdx ; i++) {
+            var idx = i;
+            if (i > gStckrs.length - 1) idx -= (gStckrs.length);
+            gStckrsDspl.push(gStckrs[idx]);
+        }
+    }
 }
 
 function createTextLine(posX, posY, font, size) {

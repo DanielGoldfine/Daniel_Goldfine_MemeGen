@@ -15,7 +15,7 @@
         <div class="logo">LOGO</div>
         <section class="header-buttons">
             <a class="button button-gallery selected" onclick="togglePages()">Gallery</a>
-            <a class="button button-about">About</a>
+            <a class="button button-editor" onclick="togglePages()">Editor</a>
         </section>
     </header>
 
@@ -45,10 +45,12 @@
 
     <main class="editor-container flex justify-space-even align-items-center display-none">
         <section class="canvas-container flex">
-            <canvas class="align-self-center" id="canvas" width="476px" height="546px" onmousedown="onCanvasClick(event)"></canvas>
+            <canvas class="align-self-center" id="canvas" width="476px" height="546px"
+                onmousedown="onCanvasClick(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event)"></canvas>
         </section>
         <section class="editor flex column align-items-center">
-            <input class="text-input" type="text" placeholder="Edit Text" onkeyup="onDrawText(value, event, this)" onblur="onTextInputBlur(this)">
+            <input class="text-input" type="text" placeholder="Edit Text" onkeyup="onDrawText(value, event, this)"
+                onblur="onTextInputBlur(this)">
             <div class="text-input-block"></div>
             <div class="edit-line-container flex">
                 <div class="edit-line-button button-switch-lines" onclick="onSwitchLine()">
@@ -80,14 +82,15 @@
                     <div class="button-edit-text decrease-font" onclick="onChangeFontSize('down')">
                         <img src="icns/icn-a-minus.png" alt="decrease-font">
                     </div>
-                    <div class="button-edit-text align-left">
+                    <div class="button-edit-text align-left" onclick="onTextAlign('right')">
                         <img src="icns/icn-align-left.png" alt="align-left">
                     </div>
                     <div class="button-edit-text align-center">
-                        <img src="icns/icn-align-center.png" alt="align-center">
+                        <img src="icns/icn-align-center.png" alt="align-center" onclick="onTextAlign('center')"
+                            ondrag="drag(ev)">
                     </div>
                     <div class="button-edit-text align-right">
-                        <img src="icns/icn-align-right.png" alt="align-right">
+                        <img src="icns/icn-align-right.png" alt="align-right" onclick="onTextAlign('left')">
                     </div>
                     <select class="button-edit-text select-font" onchange="onChangeFont(value)">
                         <option value="impact">Impact</option>
@@ -97,29 +100,28 @@
                     <div class="color-container">
                         <div class="button-edit-text color-icn">
                             <img src="icns/icn-stroke-color.png" alt="underline">
-                            <input type="color" class="stroke-color color-input" value="#000000">
+                            <input type="color" class="stroke-color color-input" value="#000000"
+                                onchange="onChangeColor('stroke', value)">
                         </div>
                     </div>
                     <div class="color-container">
                         <div class="button-edit-text color-icn">
                             <img src="icns/icn-color-palette.png" alt="tex">
-                            <input type="color" class="text-color color-input" value="#ffffff">
+                            <input type="color" class="text-color color-input" value="#ffffff"
+                                onchange="onChangeColor('fill', value)">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="stickers-container flex justify-space-between align-items-center" contenteditable="true">
-                <div class="left-arrow">
+                <div class="left-arrow" onclick="onScrollStickers('left')">
                     <svg viewBox="0 0 192 512">
                         <path
                             d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z" />
                     </svg>
                 </div>
-                <img src="stickers/2.png" alt="sticker">
-                <img src="stickers/5.png" alt="sticker">
-                <img src="stickers/11.png" alt="sticker">
-                <img src="stickers/9.png" alt="sticker">
-                <div class="right-arrow">
+                <div class="stickers-section flex justify-space-around align-items-center"></div>
+                <div class="right-arrow" onclick="onScrollStickers('right')">
                     <svg viewBox="0 0 192 512">
                         <path
                             d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z" />
@@ -137,7 +139,7 @@
                 </button>
                 <button class="save-button download flex align-items-center">
                     <svg viewBox="0 0 512 512">
-                        <path 
+                        <path
                             d="M382.56 233.376A15.96 15.96 0 00368 224h-64V16c0-8.832-7.168-16-16-16h-64c-8.832 0-16 7.168-16 16v208h-64a16.013 16.013 0 00-14.56 9.376c-2.624 5.728-1.6 12.416 2.528 17.152l112 128A15.946 15.946 0 00256 384c4.608 0 8.992-2.016 12.032-5.472l112-128c4.16-4.704 5.12-11.424 2.528-17.152z"
                             fill="#ffffff" />
                         <path
