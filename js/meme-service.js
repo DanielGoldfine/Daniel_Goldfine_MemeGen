@@ -120,7 +120,7 @@ function createGStckrs(num) {
     for (let i = 0; i < num; i++) {
         gStckrs.push({
             id: makeId(5),
-            url: `.stickers/${i + 1}.png`,
+            url: `./stickers/${i + 1}.png`,
         });
     };
 }
@@ -129,6 +129,30 @@ function initStckrsDispl(stckrs) {
     for (let i = 0; i < 4; i++) {
         gStckrsDspl.push(stckrs[i]);
     }
+}
+
+function scrollStickers(direction) {
+
+    gStckrsDspl = [];
+
+    if (direction === 'right') {
+        gStckrsIdx++
+        if (gStckrsIdx === gStckrs.length) gStckrsIdx = 0;
+        for (var i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
+            var idx = i;
+            if (i > gStckrs.length - 1) idx -= (gStckrs.length);
+            gStckrsDspl.push(gStckrs[idx]);
+        }
+    }
+    if (direction === 'left') {
+        gStckrsIdx--;
+        if (gStckrsIdx === -1) gStckrsIdx = gStckrs.length - 1;
+        for (var i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
+            var idx = i;
+            if (i > gStckrs.length - 1) idx -= (gStckrs.length);
+            gStckrsDspl.push(gStckrs[idx]);
+        };
+    };
 }
 
 function getImgs() {
@@ -143,9 +167,15 @@ function getMemeObj() {
     return gMeme;
 }
 
+function getStckrIdx(stckrId) {
+    const stckrIdx = gStckrs.findIndex(stckr => stckr.id === stckrId);
+    return stckrIdx;
+}
+
 function createMemeObj(imgId) {
 
     gMeme = {
+        gMemeId: makeId(4),
         selectedImgId: imgId,
         selectedLineIdx: null,
         selectedStckrIdx: null,
@@ -156,14 +186,32 @@ function createMemeObj(imgId) {
     };
 }
 
+function createTextLine(posX, posY, font) {
+
+    const textColor = document.querySelector('.text-color').value;
+    const strokeColor = document.querySelector('.stroke-color').value;
+
+    gMeme.lines.push({
+        txt: '',
+        font,
+        size: 40,
+        posX,
+        posY,
+        align: 'center',
+        fill: textColor,
+        stroke: strokeColor
+    });
+}
+
 function createStckr(stckrId, elStckr) {
 
-    var stckrW = 100;
-    var ratio = stckrW / elStckr.width;
-    var stckrH = elStckr.height * ratio;
+    const stckrW = 100;
+    const ratio = stckrW / elStckr.width;
+    const stckrH = elStckr.height * ratio;
+    const url = gStckrs[getStckrIdx(stckrId)].url;
 
     gMeme.stckrs.push({
-        id : stckrId,
+        url,
         posX : getRandomIntInclusive(20, gElCanvas.width - 100),
         posY : getRandomIntInclusive(20, gElCanvas.height - 100),
         width : stckrW,
@@ -241,45 +289,3 @@ function updateStckrPos(stckr, diffX, diffY) {
     stckr.posX += diffX;
     stckr.posY += diffY;
 }
-
-function scrollStickers(direction) {
-
-    gStckrsDspl = [];
-
-    if (direction === 'right') {
-        gStckrsIdx++
-        if (gStckrsIdx === gStckrs.length) gStckrsIdx = 0;
-        for (var i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
-            var idx = i;
-            if (i > gStckrs.length - 1) idx -= (gStckrs.length);
-            gStckrsDspl.push(gStckrs[idx]);
-        }
-    }
-    if (direction === 'left') {
-        gStckrsIdx--;
-        if (gStckrsIdx === -1) gStckrsIdx = gStckrs.length - 1;
-        for (var i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
-            var idx = i;
-            if (i > gStckrs.length - 1) idx -= (gStckrs.length);
-            gStckrsDspl.push(gStckrs[idx]);
-        }
-    }
-}
-
-function createTextLine(posX, posY, font) {
-
-    const textColor = document.querySelector('.text-color').value
-    const strokeColor = document.querySelector('.stroke-color').value
-
-    gMeme.lines.push({
-        txt: '',
-        font,
-        size: 40,
-        posX,
-        posY,
-        align: 'center',
-        fill: textColor,
-        stroke: strokeColor
-    })
-}
-

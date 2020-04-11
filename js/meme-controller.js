@@ -30,7 +30,7 @@ function selectImg(imgId) {
 
 function selectStckr(stckrId, elStckr) {
     var memeObj = getMemeObj()
-    if (memeObj.stckrs.length === 3) return;
+    if (memeObj.stckrs.length === 10) return;
     createStckr(stckrId, elStckr);
     renderCanvas();
 }
@@ -62,10 +62,10 @@ function renderCanvas() {
         let line = memeObj.lines[memeObj.selectedLineIdx];
 
         gCtx.font = (line.size + 'px ' + line.font);
-        var rectW = gCtx.measureText(line.txt).width + 15;
-        var rectH = line.size + 5;
-        var rectX = line.posX - (rectW / 2);
-        var rectY = line.posY - (rectH / 2);
+        let rectW = gCtx.measureText(line.txt).width + 15;
+        let rectH = line.size + 5;
+        let rectX = line.posX - (rectW / 2);
+        let rectY = line.posY - (rectH / 2);
 
         if (line.align === 'left') rectX += (rectW / 2)
         if (line.align === 'right') rectX -= (rectW / 2)
@@ -117,14 +117,19 @@ function renderCanvas() {
     if (memeObj.stckrs.length) {
 
         memeObj.stckrs.map(stckr => {
-            var stckrToDraw = document.getElementById(`${stckr.id}`);
+
+            var stckrToDraw = new Image();
+            stckrToDraw.src = stckr.url;
+
+            // stckrToDraw.onload = () => {
             gCtx.shadowColor = "rgba(0, 0, 0, 0.657)";
             gCtx.shadowBlur = 3;
             gCtx.shadowOffsetX = 1;
             gCtx.shadowOffsetY = 1;
             gCtx.drawImage(stckrToDraw, stckr.posX, stckr.posY, stckr.width, stckr.height);
+            // };
         });
-    }
+    };
 }
 
 function onAddTextLine() {
@@ -265,7 +270,7 @@ function renderStickers() {
     var elStckrsSection = document.querySelector('.stickers-section');
     var strHtmls = stckrs.map(stckr => {
         var url = stckr.url.slice(1, stckr.length);
-        return `<img src="${url}" alt="sticker" id="${stckr.id}" onclick="selectStckr('${stckr.id}', this)">`
+        return `<img src="${url}" alt="sticker" onclick="selectStckr('${stckr.id}', this)">`
     });
     elStckrsSection.innerHTML = strHtmls.join('');
 }
