@@ -66,7 +66,7 @@
                             fill="#fff" />
                     </svg>
                 </div>
-                <div class="edit-line-button button-delete-line" onclick="onDeleteLine()">
+                <div class="edit-line-button button-delete-line" onclick="onDeleteElement()">
                     <svg viewBox="0 0 448 512">
                         <path
                             d="M432 32H312l-9.4-18.7C298.5 5.1 290.2 0 281.1 0H166.8c-9.1 0-17.4 5.1-21.4 13.3L136 32H16C7.2 32 0 39.2 0 48v32c0 8.8 7.2 16 16 16h416c8.8 0 16-7.2 16-16V48c0-8.8-7.2-16-16-16zM53.2 467c1.6 25.3 22.6 45 47.9 45h245.8c25.3 0 46.3-19.7 47.9-45L416 128H32l21.2 339z"
@@ -76,10 +76,10 @@
             </div>
             <div class="edit-text-grid-container flex justify-space-around align-items-center">
                 <div class="edit-text-grid">
-                    <div class="button-edit-text increase-font" onclick="onChangeFontSize('up')">
+                    <div class="button-edit-text increase-font" onclick="onChangeSize('up')">
                         <img src="icns/icn-a-plus.png" alt="increase-font">
                     </div>
-                    <div class="button-edit-text decrease-font" onclick="onChangeFontSize('down')">
+                    <div class="button-edit-text decrease-font" onclick="onChangeSize('down')">
                         <img src="icns/icn-a-minus.png" alt="decrease-font">
                     </div>
                     <div class="button-edit-text align-left" onclick="onTextAlign('right')">
@@ -94,8 +94,8 @@
                     </div>
                     <select class="button-edit-text select-font" onchange="onChangeFont(value)">
                         <option value="impact">Impact</option>
-                        <option value="helvetica">Helvetica</option>
-                        <option value="ariel">Ariel</option>
+                        <option value="arial black">Arial</option>
+                        <option value="poppins">Poppins</option>
                     </select>
                     <div class="color-container">
                         <div class="button-edit-text color-icn">
@@ -128,16 +128,16 @@
                     </svg>
                 </div>
             </div>
-            <div class="save-buttons-container flex justify-space-between">
-                <button class="save-button share flex align-items-center">
+            <div class="save-buttons-container flex justify-space-between" onclick="onShareCnavas()">
+                <a href="#" class="save-button share flex align-items-center">
                     <svg viewBox="0 0 96 96">
                         <path
                             d="M67.5 18c-5.1 0-9.3 4.2-9.3 9.3 0 .5.1 1.1.2 1.6l-23 12.9c-1.7-1.8-4.1-3-6.8-3-5.1 0-9.3 4.1-9.3 9.3 0 5.1 4.1 9.3 9.3 9.3 2.7 0 5.2-1.2 6.9-3.1l22.8 13.4c0 .4-.1.7-.1 1.1 0 5.1 4.1 9.3 9.3 9.3 5.1 0 9.3-4.1 9.3-9.3 0-5.1-4.1-9.3-9.3-9.3-2.8 0-5.4 1.3-7.1 3.3L37.7 49.4c.1-.4.1-.9.1-1.3 0-.5 0-1-.1-1.5l23.1-13c1.7 1.8 4.1 3 6.8 3 5.1 0 9.3-4.1 9.3-9.3-.1-5.1-4.3-9.3-9.4-9.3z"
                             fill="#ffffff" />
                     </svg>
                     Share
-                </button>
-                <button class="save-button download flex align-items-center">
+                </a>
+                <a href="#" onclick="onDownloadCanvas(this)" download="" class="save-button download flex align-items-center">
                     <svg viewBox="0 0 512 512">
                         <path
                             d="M382.56 233.376A15.96 15.96 0 00368 224h-64V16c0-8.832-7.168-16-16-16h-64c-8.832 0-16 7.168-16 16v208h-64a16.013 16.013 0 00-14.56 9.376c-2.624 5.728-1.6 12.416 2.528 17.152l112 128A15.946 15.946 0 00256 384c4.608 0 8.992-2.016 12.032-5.472l112-128c4.16-4.704 5.12-11.424 2.528-17.152z"
@@ -147,16 +147,16 @@
                             fill="#ffffff" />
                     </svg>
                     Download
-                </button>
+                </a>
             </div>
         </section>
     </main>
-
 
     <script src="js/util.js"></script>
     <script src="js/meme-storage.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/meme-controller.js"></script>
+    <script src="js/meme-share.js"></script>
 </body>
 
 </html>

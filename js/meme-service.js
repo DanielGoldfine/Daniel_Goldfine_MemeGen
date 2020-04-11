@@ -117,16 +117,16 @@ function init() {
 }
 
 function createGStckrs(num) {
-for (let i = 0 ; i < num ; i++) {
-    gStckrs.push({
-            id: makeId(3),
-            url: `.stickers/${i+1}.png`,
+    for (let i = 0; i < num; i++) {
+        gStckrs.push({
+            id: makeId(5),
+            url: `.stickers/${i + 1}.png`,
         });
-};
+    };
 }
 
 function initStckrsDispl(stckrs) {
-    for (let i = 0 ; i < 4 ; i++) {
+    for (let i = 0; i < 4; i++) {
         gStckrsDspl.push(stckrs[i]);
     }
 }
@@ -148,9 +148,33 @@ function createMemeObj(imgId) {
     gMeme = {
         selectedImgId: imgId,
         selectedLineIdx: null,
+        selectedStckrIdx: null,
         lines: [],
-        stckrs: []
+        stckrs: [],
+        canvasW: null,
+        canvasH: null
     };
+}
+
+function createStckr(stckrId, elStckr) {
+
+    var stckrW = 100;
+    var ratio = stckrW / elStckr.width;
+    var stckrH = elStckr.height * ratio;
+
+    gMeme.stckrs.push({
+        id : stckrId,
+        posX : getRandomIntInclusive(20, gElCanvas.width - 100),
+        posY : getRandomIntInclusive(20, gElCanvas.height - 100),
+        width : stckrW,
+        height : stckrH
+    });
+}
+
+function seCanvasSize(w, h) {
+    gMeme.canvasW = 476;
+    var ratio = gMeme.canvasW / w;
+    gMeme.canvasH = h * ratio;
 }
 
 function setLineIdx(idx) {
@@ -161,15 +185,38 @@ function clearLineIdx() {
     gMeme.selectedLineIdx = null;
 }
 
+function setStckrIdx(idx) {
+    gMeme.selectedStckrIdx = idx;
+}
+
+function clearStckrIdx() {
+    gMeme.selectedStckrIdx = null;
+}
+
 function deleteLine() {
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
     clearLineIdx();
+}
+
+function deleteStckr() {
+    gMeme.stckrs.splice(gMeme.selectedStckrIdx, 1);
+    clearStckrIdx();
 }
 
 function updateFontSize(diff) {
 
     if (diff === 'up') gMeme.lines[gMeme.selectedLineIdx].size += 3
     else gMeme.lines[gMeme.selectedLineIdx].size -= 3
+}
+
+function updateStckrSize(diff) {
+    if (diff === 'up') {
+        gMeme.stckrs[gMeme.selectedStckrIdx].width *= 1.1;
+        gMeme.stckrs[gMeme.selectedStckrIdx].height *= 1.1;
+    } else {
+        gMeme.stckrs[gMeme.selectedStckrIdx].width /= 1.1;
+        gMeme.stckrs[gMeme.selectedStckrIdx].height /= 1.1;
+    };
 }
 
 function updateFont(font) {
@@ -190,6 +237,11 @@ function updateLinePos(line, diffX, diffY) {
     line.posY += diffY;
 }
 
+function updateStckrPos(stckr, diffX, diffY) {
+    stckr.posX += diffX;
+    stckr.posY += diffY;
+}
+
 function scrollStickers(direction) {
 
     gStckrsDspl = [];
@@ -197,7 +249,7 @@ function scrollStickers(direction) {
     if (direction === 'right') {
         gStckrsIdx++
         if (gStckrsIdx === gStckrs.length) gStckrsIdx = 0;
-        for (var i = gStckrsIdx ; i < 4 + gStckrsIdx ; i++) {
+        for (var i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
             var idx = i;
             if (i > gStckrs.length - 1) idx -= (gStckrs.length);
             gStckrsDspl.push(gStckrs[idx]);
@@ -206,7 +258,7 @@ function scrollStickers(direction) {
     if (direction === 'left') {
         gStckrsIdx--;
         if (gStckrsIdx === -1) gStckrsIdx = gStckrs.length - 1;
-        for (var i = gStckrsIdx ; i < 4 + gStckrsIdx ; i++) {
+        for (var i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
             var idx = i;
             if (i > gStckrs.length - 1) idx -= (gStckrs.length);
             gStckrsDspl.push(gStckrs[idx]);
@@ -214,7 +266,7 @@ function scrollStickers(direction) {
     }
 }
 
-function createTextLine(posX, posY, font, size) {
+function createTextLine(posX, posY, font) {
 
     const textColor = document.querySelector('.text-color').value
     const strokeColor = document.querySelector('.stroke-color').value
@@ -222,7 +274,7 @@ function createTextLine(posX, posY, font, size) {
     gMeme.lines.push({
         txt: '',
         font,
-        size,
+        size: 40,
         posX,
         posY,
         align: 'center',
@@ -230,3 +282,4 @@ function createTextLine(posX, posY, font, size) {
         stroke: strokeColor
     })
 }
+

@@ -52,6 +52,7 @@ body {
 a {
     margin: none;
     color: white;
+    text-decoration: none;
 }
 
 p {
@@ -208,10 +209,11 @@ p {
 
 .editor-container .editor {
     background-color: #383b42;
-    width: 527px;
+    min-width: 527px;
     height: 546px;
     border-radius: 25px;
     padding-top: 24px;
+    margin-inline-start: 50px;
 }
 
 .editor-container .text-input {
