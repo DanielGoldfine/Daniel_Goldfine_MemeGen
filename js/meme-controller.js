@@ -121,13 +121,13 @@ function renderCanvas() {
             var stckrToDraw = new Image();
             stckrToDraw.src = stckr.url;
 
-            // stckrToDraw.onload = () => {
+            stckrToDraw.onload = () => {
             gCtx.shadowColor = "rgba(0, 0, 0, 0.657)";
             gCtx.shadowBlur = 3;
             gCtx.shadowOffsetX = 1;
             gCtx.shadowOffsetY = 1;
             gCtx.drawImage(stckrToDraw, stckr.posX, stckr.posY, stckr.width, stckr.height);
-            // };
+            };
         });
     };
 }
