@@ -12,13 +12,13 @@ var gDragging = {
 
 //******************************************************************************************************************************* */
 
-function renderGallery() {
-    const imgs = getImgs();
+function renderGallery(imgs) {
     var elGallery = document.querySelector('.imgs-grid');
     var strHtmls = imgs.map(img => {
         var url = img.url.slice(1, img.length);
         return `<img class="meme-img" src="${url}" id="${img.id}" alt="meme-img" onclick="selectImg('${img.id}')">`
     })
+    elGallery.innerHTML = ''
     elGallery.innerHTML = strHtmls.join('');
 }
 
@@ -26,10 +26,13 @@ function selectImg(imgId) {
     createMemeObj(imgId);
     renderCanvas();
     togglePages();
+    clearSearchInput();
+    const imgs = getImgs();
+    renderGallery(imgs);
 }
 
 function selectStckr(stckrId, elStckr) {
-    var memeObj = getMemeObj()
+    var memeObj = getMemeObj();
     if (memeObj.stckrs.length === 10) return;
     createStckr(stckrId, elStckr);
     renderCanvas();
@@ -122,11 +125,11 @@ function renderCanvas() {
             stckrToDraw.src = stckr.url;
 
             stckrToDraw.onload = () => {
-            gCtx.shadowColor = "rgba(0, 0, 0, 0.657)";
-            gCtx.shadowBlur = 3;
-            gCtx.shadowOffsetX = 1;
-            gCtx.shadowOffsetY = 1;
-            gCtx.drawImage(stckrToDraw, stckr.posX, stckr.posY, stckr.width, stckr.height);
+                gCtx.shadowColor = "rgba(0, 0, 0, 0.657)";
+                gCtx.shadowBlur = 3;
+                gCtx.shadowOffsetX = 1;
+                gCtx.shadowOffsetY = 1;
+                gCtx.drawImage(stckrToDraw, stckr.posX, stckr.posY, stckr.width, stckr.height);
             };
         });
     };
@@ -422,4 +425,24 @@ function onShareCnavas() {
     gIsTextSelected = false;
     renderCanvas();
     shareToFb();
+}
+
+function onFilterText(ev, elSearch, input) {
+
+    if (ev.key === 'Enter') {
+        elSearch.blur();
+        submitSearch();
+        return;
+    }
+
+    if (input === '') {
+        const imgs = getImgs()
+        renderGallery(imgs)
+        return;
+    }
+    filterByText(input);
+}
+
+function clearSearchInput() {
+    document.querySelector('.input-search').value = '';
 }

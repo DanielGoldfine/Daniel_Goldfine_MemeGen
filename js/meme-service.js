@@ -7,23 +7,27 @@ var gKeywords = {
     'crazy': 1,
     'animals': 1,
     'babies': 1,
-    'cute': 1
+    'cute': 1,
+    'beauty': 1,
+    'smile' : 1,
+    'men' : 1,
+    'woman' : 1
 }
 
 var gImgs = [{
     id: makeId(4),
     url: '.meme-imgs/1.jpg',
-    keywords: ['leaders', 'crazy']
+    keywords: ['leaders', 'crazy', 'men']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/2.jpg',
-    keywords: ['animals', 'cute']
+    keywords: ['animals', 'cute', 'beauty']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/3.jpg',
-    keywords: ['babie', 'animals', 'cute']
+    keywords: ['babies', 'animals', 'cute', 'beauty']
 },
 {
     id: makeId(4),
@@ -38,7 +42,7 @@ var gImgs = [{
 {
     id: makeId(4),
     url: '.meme-imgs/6.jpg',
-    keywords: ['funny']
+    keywords: ['men']
 },
 {
     id: makeId(4),
@@ -48,57 +52,92 @@ var gImgs = [{
 {
     id: makeId(4),
     url: '.meme-imgs/8.jpg',
-    keywords: ['movies']
+    keywords: ['movies', 'men']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/9.jpg',
-    keywords: ['babies', 'crazy', 'funny']
+    keywords: ['babies', 'crazy', 'funny', 'smile']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/10.jpg',
-    keywords: ['leaders']
+    keywords: ['leaders', 'men', 'smile']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/11.jpg',
-    keywords: ['funny', 'crazy']
+    keywords: ['funny', 'crazy', 'men']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/12.jpg',
-    keywords: ['funny']
+    keywords: ['funny', 'men']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/13.jpg',
-    keywords: ['movies']
+    keywords: ['movies', 'men']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/14.jpg',
-    keywords: ['movies']
+    keywords: ['movies', 'men']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/15.jpg',
-    keywords: ['movies']
+    keywords: ['movies', 'men']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/16.jpg',
-    keywords: ['movies']
+    keywords: ['movies', 'men']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/17.jpg',
-    keywords: ['leaders', 'crazy']
+    keywords: ['leaders', 'crazy', 'men']
 },
 {
     id: makeId(4),
     url: '.meme-imgs/18.jpg',
     keywords: ['movies']
+},
+{
+    id: makeId(4),
+    url: '.meme-imgs/19.jpg',
+    keywords: ['crazy']
+},
+{
+    id: makeId(4),
+    url: '.meme-imgs/20.jpg',
+    keywords: ['crazy', 'woman']
+},
+{
+    id: makeId(4),
+    url: '.meme-imgs/21.jpg',
+    keywords: ['leaders, crazy', 'men']
+},
+{
+    id: makeId(4),
+    url: '.meme-imgs/22.jpg',
+    keywords: ['babies, funny']
+},
+{
+    id: makeId(4),
+    url: '.meme-imgs/23.jpg',
+    keywords: ['animals, funny, crazy']
+},
+{
+    id: makeId(4),
+    url: '.meme-imgs/24.jpg',
+    keywords: ['crazy, movies', 'men']
+},
+{
+    id: makeId(4),
+    url: '.meme-imgs/25.jpg',
+    keywords: ['beauty, movies', 'woman']
 }];
 
 var gStckrs = [];
@@ -112,7 +151,7 @@ var gMeme;
 function init() {
     createGStckrs(36);
     initStckrsDispl(gStckrs);
-    renderGallery();
+    renderGallery(gImgs);
     renderStickers();
 }
 
@@ -138,7 +177,7 @@ function scrollStickers(direction) {
     if (direction === 'right') {
         gStckrsIdx++
         if (gStckrsIdx === gStckrs.length) gStckrsIdx = 0;
-        for (var i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
+        for (let i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
             var idx = i;
             if (i > gStckrs.length - 1) idx -= (gStckrs.length);
             gStckrsDspl.push(gStckrs[idx]);
@@ -147,7 +186,7 @@ function scrollStickers(direction) {
     if (direction === 'left') {
         gStckrsIdx--;
         if (gStckrsIdx === -1) gStckrsIdx = gStckrs.length - 1;
-        for (var i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
+        for (let i = gStckrsIdx; i < 4 + gStckrsIdx; i++) {
             var idx = i;
             if (i > gStckrs.length - 1) idx -= (gStckrs.length);
             gStckrsDspl.push(gStckrs[idx]);
@@ -212,10 +251,10 @@ function createStckr(stckrId, elStckr) {
 
     gMeme.stckrs.push({
         url,
-        posX : getRandomIntInclusive(20, gElCanvas.width - 100),
-        posY : getRandomIntInclusive(20, gElCanvas.height - 100),
-        width : stckrW,
-        height : stckrH
+        posX: getRandomIntInclusive(20, gElCanvas.width - 100),
+        posY: getRandomIntInclusive(20, gElCanvas.height - 100),
+        width: stckrW,
+        height: stckrH
     });
 }
 
@@ -288,4 +327,27 @@ function updateLinePos(line, diffX, diffY) {
 function updateStckrPos(stckr, diffX, diffY) {
     stckr.posX += diffX;
     stckr.posY += diffY;
+}
+
+function filterByText(input) {
+
+    var imgsFiltered = []
+    
+    gImgs.map(img => {
+        for (let i = 0; i < img.keywords.length; i++) {
+
+            let keyword = img.keywords[i];
+            if (keyword.slice(0, input.length) === input.toLowerCase()) {
+                imgsFiltered.push(img);
+                break;
+            };
+        };
+    });
+    renderGallery(imgsFiltered);
+}
+
+function submitSearch() {
+    const value = document.querySelector('.input-search').value.toLowerCase();
+    gKeywords[value]++
+    renderKeywords();
 }
