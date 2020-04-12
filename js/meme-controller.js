@@ -73,7 +73,7 @@ function renderKeywords(val) {
     for (let word in keywords) {
 
         let fontSize = .4 + (keywords[word] / 5) + 'rem';
-        let str = `<p style="font-size: ${fontSize}" onclick="submitSearch('${word}')">${word}</p>`
+        let str = `<p style="font-size: ${fontSize}" onclick="submitSearch('${word}'); filterByText('${word}')">${word}</p>`
         strHtmls.push(str)
     };
     let finalStr = strHtmls.slice(0, quantity);
