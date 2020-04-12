@@ -51,7 +51,7 @@
                 onmousedown="onCanvasClick(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event)"></canvas>
         </section>
         <section class="editor flex column align-items-center">
-            <input class="text-input" type="text" placeholder="Edit Text" onkeyup="onDrawText(value, event, this)"
+            <input class="text-input" type="text" placeholder="Add or select line to edit" onkeyup="onDrawText(value, event, this)"
                 onblur="onTextInputBlur(this)">
             <div class="text-input-block"></div>
             <div class="edit-line-container flex">
@@ -160,6 +160,8 @@
             </div>
         </section>
     </main>
+
+    <section class="hidden-stickers" style="display: none;"></section>
 
     <script src="js/util.js"></script>
     <script src="js/meme-storage.js"></script>

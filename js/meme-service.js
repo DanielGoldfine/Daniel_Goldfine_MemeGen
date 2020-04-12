@@ -151,6 +151,7 @@ var gMeme;
 function init() {
     createGStckrs(36);
     initStckrsDispl(gStckrs);
+    renderHiddenStckrs(gStckrs);
     renderGallery(gImgs);
     renderStickers();
 }
@@ -250,6 +251,7 @@ function createStckr(stckrId, elStckr) {
     const url = gStckrs[getStckrIdx(stckrId)].url;
 
     gMeme.stckrs.push({
+        id : stckrId,
         url,
         posX: getRandomIntInclusive(20, gElCanvas.width - 100),
         posY: getRandomIntInclusive(20, gElCanvas.height - 100),

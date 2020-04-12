@@ -17,7 +17,7 @@ function renderGallery(imgs) {
     var strHtmls = imgs.map(img => {
         var url = img.url.slice(1, img.length);
         return `<img class="meme-img" src="${url}" id="${img.id}" alt="meme-img" onclick="selectImg('${img.id}')">`
-    })
+    });
     elGallery.innerHTML = ''
     elGallery.innerHTML = strHtmls.join('');
 }
@@ -101,7 +101,23 @@ function renderCanvas() {
         gCtx.fillRect(rectX, rectY, rectW, rectH);
         gCtx.setLineDash([]);
 
-    }
+    };
+
+    if (memeObj.stckrs.length) {
+
+        memeObj.stckrs.map(stckr => {
+
+            let stckrId = 'hidden' + stckr.id
+            let stckrToDraw = document.getElementById(stckrId);
+
+                gCtx.shadowColor = "rgba(0, 0, 0, 0.657)";
+                gCtx.shadowBlur = 3;
+                gCtx.shadowOffsetX = 1;
+                gCtx.shadowOffsetY = 1;
+                gCtx.drawImage(stckrToDraw, stckr.posX, stckr.posY, stckr.width, stckr.height);
+
+        });
+    };
 
     if (memeObj.lines.length) {
         memeObj.lines.map(line => {
@@ -116,23 +132,6 @@ function renderCanvas() {
             gCtx.strokeText(line.txt, line.posX, line.posY);
         });
     };
-
-    if (memeObj.stckrs.length) {
-
-        memeObj.stckrs.map(stckr => {
-
-            var stckrToDraw = new Image();
-            stckrToDraw.src = stckr.url;
-
-            stckrToDraw.onload = () => {
-                gCtx.shadowColor = "rgba(0, 0, 0, 0.657)";
-                gCtx.shadowBlur = 3;
-                gCtx.shadowOffsetX = 1;
-                gCtx.shadowOffsetY = 1;
-                gCtx.drawImage(stckrToDraw, stckr.posX, stckr.posY, stckr.width, stckr.height);
-            };
-        });
-    };
 }
 
 function onAddTextLine() {
@@ -140,7 +139,6 @@ function onAddTextLine() {
     const memeObj = getMemeObj();
 
     if (gIsTextSelected) {
-        if (memeObj.lines.length === 3) return;
         gIsTextSelected = false;
         clearLineIdx();
         document.querySelector('.text-input').value = '';
@@ -153,19 +151,9 @@ function onAddTextLine() {
     var posX = gElCanvas.width / 2
     var posY;
 
-    switch (memeObj.lines.length) {
-        case 0:
-            posY = 30
-            break;
-        case 1:
-            posY = (gElCanvas.height - 30)
-            break;
-        case 2:
-            posY = (gElCanvas.height / 2)
-            break;
-        default:
-            return;
-    }
+    if (memeObj.lines.length === 0) posY = 30
+    if (memeObj.lines.length === 1) posY = (gElCanvas.height - 30)
+    if (memeObj.lines.length >= 2) posY = (gElCanvas.height / 2)
 
     const font = document.querySelector('.select-font').value
 
@@ -270,12 +258,21 @@ function onScrollStickers(direction) {
 function renderStickers() {
 
     const stckrs = getStckrsDspl()
-    var elStckrsSection = document.querySelector('.stickers-section');
-    var strHtmls = stckrs.map(stckr => {
-        var url = stckr.url.slice(1, stckr.length);
+    let elStckrsSection = document.querySelector('.stickers-section');
+    let strHtmls = stckrs.map(stckr => {
+        let url = stckr.url.slice(1, stckr.length);
         return `<img src="${url}" alt="sticker" onclick="selectStckr('${stckr.id}', this)">`
     });
     elStckrsSection.innerHTML = strHtmls.join('');
+}
+
+function renderHiddenStckrs(stckrs) {
+    let strHtmls = stckrs.map(stckr =>{
+        let id = 'hidden' + stckr.id;
+        let url = stckr.url.slice(1, stckr.length);
+        return `<img src="${url}" id="${id}" alt="sticker">`
+    });
+    document.querySelector('.hidden-stickers').innerHTML = strHtmls.join('');
 }
 
 function onCanvasClick(ev) {
