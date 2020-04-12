@@ -160,7 +160,7 @@ function createGStckrs(num) {
     for (let i = 0; i < num; i++) {
         gStckrs.push({
             id: makeId(5),
-            url: `./stickers/${i + 1}.png`,
+            url: `.stickers/${i + 1}.png`,
         });
     };
 }

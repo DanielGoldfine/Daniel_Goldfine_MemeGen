@@ -260,7 +260,7 @@ function renderStickers() {
     const stckrs = getStckrsDspl()
     let elStckrsSection = document.querySelector('.stickers-section');
     let strHtmls = stckrs.map(stckr => {
-        let url = stckr.url.slice(2, stckr.length);
+        let url = stckr.url.slice(1, stckr.length);
         return `<img src="${url}" alt="sticker" onclick="selectStckr('${stckr.id}', this)">`
     });
     elStckrsSection.innerHTML = strHtmls.join('');
