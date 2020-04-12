@@ -4,6 +4,7 @@ var gElCanvas = document.querySelector('#canvas');
 var gCtx = gElCanvas.getContext('2d');
 var gIsTextSelected = false;
 var gIsStckrSelected = false;
+var gIskeywordsExpanded = false;
 var gDragging = {
     isMousDown: false,
     lastXpos: null,
@@ -44,6 +45,39 @@ function togglePages() {
     document.querySelector('.button-gallery').classList.toggle('selected');
     document.querySelector('.button-editor').classList.toggle('selected');
 
+}
+
+function expandKeywords(elBtn) {
+
+document.querySelector('.search-words').classList.toggle('expand')
+document.querySelector('.gellery-filter').classList.toggle('expand')
+
+
+    if (!gIskeywordsExpanded) {
+        elBtn.innerText = 'less';
+        renderKeywords('full');
+        gIskeywordsExpanded = true;
+    } else {
+        elBtn.innerText = 'more';
+        renderKeywords('less');
+        gIskeywordsExpanded = false;
+    };
+}
+
+function renderKeywords(val) {
+
+    let keywords = getKeywords();
+    let quantity = (val === 'less') ? 6 : 11
+    let strHtmls = [];
+
+    for (let word in keywords) {
+
+        let fontSize = .4 + (keywords[word] / 5) + 'rem';
+        let str = `<p style="font-size: ${fontSize}" onclick="submitSearch('${word}')">${word}</p>`
+        strHtmls.push(str)
+    };
+    let finalStr = strHtmls.slice(0, quantity);
+    document.querySelector('.search-words').innerHTML = finalStr.join('')
 }
 
 function renderCanvas() {
@@ -110,11 +144,11 @@ function renderCanvas() {
             let stckrId = 'hidden' + stckr.id
             let stckrToDraw = document.getElementById(stckrId);
 
-                gCtx.shadowColor = "rgba(0, 0, 0, 0.657)";
-                gCtx.shadowBlur = 3;
-                gCtx.shadowOffsetX = 1;
-                gCtx.shadowOffsetY = 1;
-                gCtx.drawImage(stckrToDraw, stckr.posX, stckr.posY, stckr.width, stckr.height);
+            gCtx.shadowColor = "rgba(0, 0, 0, 0.657)";
+            gCtx.shadowBlur = 3;
+            gCtx.shadowOffsetX = 1;
+            gCtx.shadowOffsetY = 1;
+            gCtx.drawImage(stckrToDraw, stckr.posX, stckr.posY, stckr.width, stckr.height);
 
         });
     };
@@ -267,7 +301,7 @@ function renderStickers() {
 }
 
 function renderHiddenStckrs(stckrs) {
-    let strHtmls = stckrs.map(stckr =>{
+    let strHtmls = stckrs.map(stckr => {
         let id = 'hidden' + stckr.id;
         let url = stckr.url.slice(1, stckr.length);
         return `<img src="${url}" id="${id}" alt="sticker">`
@@ -428,7 +462,7 @@ function onFilterText(ev, elSearch, input) {
 
     if (ev.key === 'Enter') {
         elSearch.blur();
-        submitSearch();
+        submitSearch(elSearch.value);
         return;
     }
 

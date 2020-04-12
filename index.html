@@ -14,9 +14,9 @@
     <header class="container header-container flex justify-space-between align-items-center">
         <div class="logo">LOGO</div>
         <section class="header-buttons">
-            <a class="button button-gallery selected" onclick="togglePages()">Gallery</a>
-            <a class="button button-editor" onclick="togglePages()">Editor</a>
-            <a class="button button-editor" onclick="togglePages()">My Memes</a>
+            <a class="button button-gallery selected" onclick="togglePages('gallery')">Gallery</a>
+            <a class="button button-editor" onclick="togglePages('editor')">Editor</a>
+            <a class="button button-editor" onclick="togglePages('myMemes')">My Memes</a>
         </section>
     </header>
 
@@ -25,18 +25,14 @@
         <section class="gallery-container">
             <div class="gellery-filter flex align-items-center justify-space-between">
                 <div class="search-bar flex">
-                    <input class="input-search" type="text" placeholder="Search" name="search" onkeyup="onFilterText(event, this, value)">
+                    <input class="input-search" type="text" placeholder="Search" name="search"
+                        onkeyup="onFilterText(event, this, value)">
                     <img src="icns/icn-search.svg" alt="search" onclick="submitSearch()">
                 </div>
-                <div class="search-word flex align-items-center justify-space-even">
-                    <p>word1</p>
-                    <p>word2</p>
-                    <p>word3</p>
-                    <p>word4</p>
-                    <p>word5</p>
-                    <p>word6</p>
+                <div class="search-words-container flex justify-space-even">
+                    <div class="search-words"></div>
+                    <a class="button button-more align-self-center" onclick="expandKeywords(this)">More</a>
                 </div>
-                <a class="button button-more align-self-center">More</a>
             </div>
             <div class="gallery-grid-container">
                 <div class="imgs-grid"></div>
@@ -51,8 +47,8 @@
                 onmousedown="onCanvasClick(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event)"></canvas>
         </section>
         <section class="editor flex column align-items-center">
-            <input class="text-input" type="text" placeholder="Add or select line to edit" onkeyup="onDrawText(value, event, this)"
-                onblur="onTextInputBlur(this)">
+            <input class="text-input" type="text" placeholder="Add or select line to edit"
+                onkeyup="onDrawText(value, event, this)" onblur="onTextInputBlur(this)">
             <div class="text-input-block"></div>
             <div class="edit-line-container flex">
                 <div class="edit-line-button button-switch-lines" onclick="onSwitchLine()">
@@ -146,7 +142,8 @@
                     </svg>
                     Share
                 </a>
-                <a href="#" class="save-button download flex align-items-center" onclick="onDownloadCanvas(this)" download="">
+                <a href="#" class="save-button download flex align-items-center" onclick="onDownloadCanvas(this)"
+                    download="">
                     <svg viewBox="0 0 512 512">
                         <path
                             d="M382.56 233.376A15.96 15.96 0 00368 224h-64V16c0-8.832-7.168-16-16-16h-64c-8.832 0-16 7.168-16 16v208h-64a16.013 16.013 0 00-14.56 9.376c-2.624 5.728-1.6 12.416 2.528 17.152l112 128A15.946 15.946 0 00256 384c4.608 0 8.992-2.016 12.032-5.472l112-128c4.16-4.704 5.12-11.424 2.528-17.152z"

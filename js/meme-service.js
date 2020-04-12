@@ -1,17 +1,17 @@
 'use strict';
 
 var gKeywords = {
-    'funny': 1,
-    'movies': 1,
-    'leaders': 1,
-    'crazy': 1,
-    'animals': 1,
-    'babies': 1,
-    'cute': 1,
-    'beauty': 1,
-    'smile' : 1,
     'men' : 1,
-    'woman' : 1
+    'woman' : 1,
+    'babies': 1,
+    'animals': 1,
+    'movies': 1,
+    'cute': 1,
+    'funny': 1,
+    'leaders': 1,
+    'smile' : 1,
+    'crazy': 1,
+    'beauty': 1,
 }
 
 var gImgs = [{
@@ -150,7 +150,7 @@ var gMeme;
 
 function init() {
     renderGallery(gImgs);
-    // renderKeywords(gKeywords);
+    renderKeywords('less');
     createGStckrs(36);
     initStckrsDispl(gStckrs);
     renderHiddenStckrs(gStckrs);
@@ -206,6 +206,10 @@ function getStckrsDspl() {
 
 function getMemeObj() {
     return gMeme;
+}
+
+function getKeywords() {
+    return gKeywords;
 }
 
 function getStckrIdx(stckrId) {
@@ -349,8 +353,9 @@ function filterByText(input) {
     renderGallery(imgsFiltered);
 }
 
-function submitSearch() {
-    const value = document.querySelector('.input-search').value.toLowerCase();
-    gKeywords[value]++
-    renderKeywords();
+function submitSearch(word) {
+
+    gKeywords[word]++
+    let quantity = (!gIskeywordsExpanded) ? 'less' : 'full';
+    renderKeywords(quantity);
 }
