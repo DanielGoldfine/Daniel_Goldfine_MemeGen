@@ -149,10 +149,11 @@ var gMeme;
 //******************************************************************************************************************************* */
 
 function init() {
+    renderGallery(gImgs);
+    // renderKeywords(gKeywords);
     createGStckrs(36);
     initStckrsDispl(gStckrs);
     renderHiddenStckrs(gStckrs);
-    renderGallery(gImgs);
     renderStickers();
 }
 
