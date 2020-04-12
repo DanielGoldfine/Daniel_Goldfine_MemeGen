@@ -216,12 +216,12 @@ p {
     display: grid;
     grid-gap: 30px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    align-items: center;
 }
 
 /* *********************************************************************************************************************************** */
 
 /* EDITOR CONTAINER *****************************************************************/
-
 
 /* EDITOR *****************************************************************/
 
@@ -404,6 +404,7 @@ p {
 .save {
     background-color: #3fd455;
 }
+
 .share {
     background-color: #1e7cd3;
 }
@@ -483,7 +484,6 @@ p {
     display: none;
 }
 
-
 /* SEARCH WORDS EXPAND *****************************************************************/
 
 .search-words-container .expand {
@@ -494,4 +494,58 @@ p {
 .gallery-container .expand {
     height: 200px;
     align-items: end;
+}
+
+/* MEDIA QUERIES *****************************************************************/
+
+@media (max-width: 1190px) {
+    .gellery-filter {
+        flex-direction: column;
+        margin-bottom: 55px;
+    }
+    .gellery-filter .search-bar .input-search {
+        margin-inline-start: 0;
+        width: 645px;
+    }
+    .search-words-container {
+        margin-top: 23px;
+    }
+    .search-words-container .button-more {
+        margin-inline-end: 0;
+    }
+    .gallery-filter .search-words-container .expand {
+        max-height: 500px;
+        border-radius: 20px;
+    }
+    
+    .gallery-container .expand {
+        height: 240px;
+        justify-content: end;
+        align-items: center;
+    }
+}
+@media (max-width: 700px) {
+    .gellery-filter {
+        flex-direction: column;
+        margin-bottom: 55px;
+    }
+    .gellery-filter .search-bar .input-search {
+        margin-inline-start: 0;
+        width: 608px;
+        border-radius: 23px;
+    }
+
+    .search-words-container .button-more {
+        margin-inline-end: 0;
+    }
+    .gallery-filter .search-words-container .expand {
+        max-height: 500px;
+        border-radius: 20px;
+    }
+    
+    .gallery-container .expand {
+        height: 240px;
+        justify-content: end;
+        align-items: center;
+    }
 }
