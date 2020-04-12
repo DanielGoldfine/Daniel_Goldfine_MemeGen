@@ -26,7 +26,7 @@ function renderGallery(imgs) {
 function selectImg(imgId) {
     createMemeObj(imgId);
     renderCanvas();
-    togglePages();
+    togglePages('editor');
     clearSearchInput();
     const imgs = getImgs();
     renderGallery(imgs);
@@ -39,18 +39,43 @@ function selectStckr(stckrId, elStckr) {
     renderCanvas();
 }
 
-function togglePages() {
-    document.querySelector('.editor-container').classList.toggle('display-none');
-    document.querySelector('.main-container-gallery').classList.toggle('display-none');
-    document.querySelector('.button-gallery').classList.toggle('selected');
-    document.querySelector('.button-editor').classList.toggle('selected');
+function togglePages(page) {
 
+    let elGallery = document.querySelector('.main-container-gallery');
+    let elEditor = document.querySelector('.editor-container');
+    let elMyMemes = document.querySelector('.my-memes-container');
+    let elGalleryBtn = document.querySelector('.button-gallery');
+    let elEditorBtn = document.querySelector('.button-editor');
+    let elMyMemesBtn = document.querySelector('.button-my-memes');
+
+    if (page === 'gallery') {
+        elGallery.style.display = 'block';
+        elEditor.style.display = 'none';
+        elMyMemes.style.display = 'none';
+        elGalleryBtn.classList.add('selected');
+        elEditorBtn.classList.remove('selected');
+        elMyMemesBtn.classList.remove('selected');
+    } else if (page === 'editor') {
+        elGallery.style.display = 'none';
+        elEditor.style.display = 'flex';
+        elMyMemes.style.display = 'none';
+        elGalleryBtn.classList.remove('selected');
+        elEditorBtn.classList.add('selected');
+        elMyMemesBtn.classList.remove('selected');
+    } else {
+        elGallery.style.display = 'none';
+        elEditor.style.display = 'none';
+        elMyMemes.style.display = 'flex';
+        elGalleryBtn.classList.remove('selected');
+        elEditorBtn.classList.remove('selected');
+        elMyMemesBtn.classList.add('selected');
+    };
 }
 
 function expandKeywords(elBtn) {
 
-document.querySelector('.search-words').classList.toggle('expand')
-document.querySelector('.gellery-filter').classList.toggle('expand')
+    document.querySelector('.search-words').classList.toggle('expand')
+    document.querySelector('.gellery-filter').classList.toggle('expand')
 
 
     if (!gIskeywordsExpanded) {
@@ -193,6 +218,7 @@ function onAddTextLine() {
 
     createTextLine(posX, posY, font);
     var elTextInput = document.querySelector('.text-input')
+    elTextInput.placeholder = '';
     elTextInput.focus();
 }
 
@@ -438,6 +464,7 @@ function onDrag(ev) {
 
 function clearTextInput() {
     document.querySelector('.text-input').value = '';
+    document.querySelector('.text-input').placeholder = 'Add or select line to edit';
     document.querySelector('.text-input-block').style.display = 'block'
 }
 
@@ -456,6 +483,10 @@ function onShareCnavas() {
     gIsTextSelected = false;
     renderCanvas();
     shareToFb();
+}
+
+function onSaveCanvas() {
+    saveCanvasToStorage(gElCanvas);
 }
 
 function onFilterText(ev, elSearch, input) {
@@ -477,3 +508,4 @@ function onFilterText(ev, elSearch, input) {
 function clearSearchInput() {
     document.querySelector('.input-search').value = '';
 }
+

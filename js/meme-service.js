@@ -1,145 +1,147 @@
 'use strict';
 
 var gKeywords = {
-    'men' : 1,
-    'woman' : 1,
+    'men': 1,
+    'woman': 1,
     'babies': 1,
     'animals': 1,
     'movies': 1,
     'cute': 1,
     'funny': 1,
     'leaders': 1,
-    'smile' : 1,
+    'smile': 1,
     'crazy': 1,
     'beauty': 1,
 }
 
 var gImgs = [{
-    id: makeId(4),
+    id: 'img01',
     url: '.meme-imgs/1.jpg',
     keywords: ['leaders', 'crazy', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img02',
     url: '.meme-imgs/2.jpg',
     keywords: ['animals', 'cute', 'beauty']
 },
 {
-    id: makeId(4),
+    id: 'img03',
     url: '.meme-imgs/3.jpg',
     keywords: ['babies', 'animals', 'cute', 'beauty']
 },
 {
-    id: makeId(4),
+    id: 'img04',
     url: '.meme-imgs/4.jpg',
     keywords: ['animals']
 },
 {
-    id: makeId(4),
+    id: 'img05',
     url: '.meme-imgs/5.jpg',
     keywords: ['babies', 'crazy']
 },
 {
-    id: makeId(4),
+    id: 'img06',
     url: '.meme-imgs/6.jpg',
     keywords: ['men']
 },
 {
-    id: makeId(4),
+    id: 'img07',
     url: '.meme-imgs/7.jpg',
     keywords: ['babies', 'crazy']
 },
 {
-    id: makeId(4),
+    id: 'img08',
     url: '.meme-imgs/8.jpg',
     keywords: ['movies', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img09',
     url: '.meme-imgs/9.jpg',
     keywords: ['babies', 'crazy', 'funny', 'smile']
 },
 {
-    id: makeId(4),
+    id: 'img10',
     url: '.meme-imgs/10.jpg',
     keywords: ['leaders', 'men', 'smile']
 },
 {
-    id: makeId(4),
+    id: 'img11',
     url: '.meme-imgs/11.jpg',
     keywords: ['funny', 'crazy', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img12',
     url: '.meme-imgs/12.jpg',
     keywords: ['funny', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img13',
     url: '.meme-imgs/13.jpg',
     keywords: ['movies', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img14',
     url: '.meme-imgs/14.jpg',
     keywords: ['movies', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img15',
     url: '.meme-imgs/15.jpg',
     keywords: ['movies', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img16',
     url: '.meme-imgs/16.jpg',
     keywords: ['movies', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img17',
     url: '.meme-imgs/17.jpg',
     keywords: ['leaders', 'crazy', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img18',
     url: '.meme-imgs/18.jpg',
     keywords: ['movies']
 },
 {
-    id: makeId(4),
+    id: 'img19',
     url: '.meme-imgs/19.jpg',
     keywords: ['crazy']
 },
 {
-    id: makeId(4),
+    id: 'img20',
     url: '.meme-imgs/20.jpg',
     keywords: ['crazy', 'woman']
 },
 {
-    id: makeId(4),
+    id: 'img21',
     url: '.meme-imgs/21.jpg',
     keywords: ['leaders, crazy', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img22',
     url: '.meme-imgs/22.jpg',
     keywords: ['babies, funny']
 },
 {
-    id: makeId(4),
+    id: 'img23',
     url: '.meme-imgs/23.jpg',
     keywords: ['animals, funny, crazy']
 },
 {
-    id: makeId(4),
+    id: 'img24',
     url: '.meme-imgs/24.jpg',
     keywords: ['crazy, movies', 'men']
 },
 {
-    id: makeId(4),
+    id: 'img25',
     url: '.meme-imgs/25.jpg',
     keywords: ['beauty, movies', 'woman']
 }];
 
+const KEY = 'getCanvass';
+var gSavedCanvass = [];
 var gStckrs = [];
 var gStckrsIdx = 0;
 var gStckrsDspl = [];
@@ -160,7 +162,7 @@ function init() {
 function createGStckrs(num) {
     for (let i = 0; i < num; i++) {
         gStckrs.push({
-            id: makeId(5),
+            id: 'stckr0' + (i + 1),
             url: `.stickers/${i + 1}.png`,
         });
     };
@@ -220,7 +222,7 @@ function getStckrIdx(stckrId) {
 function createMemeObj(imgId) {
 
     gMeme = {
-        gMemeId: makeId(4),
+        id: makeId(4),
         selectedImgId: imgId,
         selectedLineIdx: null,
         selectedStckrIdx: null,
@@ -256,7 +258,7 @@ function createStckr(stckrId, elStckr) {
     const url = gStckrs[getStckrIdx(stckrId)].url;
 
     gMeme.stckrs.push({
-        id : stckrId,
+        id: stckrId,
         url,
         posX: getRandomIntInclusive(20, gElCanvas.width - 100),
         posY: getRandomIntInclusive(20, gElCanvas.height - 100),
@@ -339,7 +341,7 @@ function updateStckrPos(stckr, diffX, diffY) {
 function filterByText(input) {
 
     var imgsFiltered = []
-    
+
     gImgs.map(img => {
         for (let i = 0; i < img.keywords.length; i++) {
 
@@ -358,4 +360,27 @@ function submitSearch(word) {
     gKeywords[word]++
     let quantity = (!gIskeywordsExpanded) ? 'less' : 'full';
     renderKeywords(quantity);
+}
+
+function saveCanvasToStorage(canvas) {
+    let thiscanvasId = gMeme.id;
+    let existingCanvasIdx = null;
+    let dataToSave = {
+        meme: gMeme,
+        thumbnail: canvas.toDataURL()
+    };
+
+    for (var i = 0; i < gSavedCanvass.length; i++) {
+        if (gSavedCanvass[i].meme.id === thiscanvasId) {
+            existingCanvasIdx = i;
+            break;
+        };
+    };
+
+    if (existingCanvasIdx !== null) {
+        gSavedCanvass.splice(existingCanvasIdx, 1, dataToSave);
+    } else {
+        gSavedCanvass.push(dataToSave);
+    };
+    saveToLocalStorage(KEY, gSavedCanvass);
 }
