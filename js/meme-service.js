@@ -158,6 +158,7 @@ function init() {
     renderHiddenStckrs(gStckrs);
     renderStickers();
     assignSavedCanvass()
+    addTouchDrag()
 }
 
 function createGStckrs(num) {
@@ -403,4 +404,17 @@ function saveCanvasToStorage(canvas) {
         gSavedMemes.push(dataToSave);
     };
     saveToLocalStorage(KEY, gSavedMemes);
+}
+
+function addTouchDrag() {
+    var touchMove = new Hammer(gElCanvas);
+    touchMove.on('pan', function (ev) {
+        if (ev.pointerType === 'mouse') return;
+        onDrag(ev.srcEvent);
+    });
+    var touchDown = new Hammer(gElCanvas);
+    touchDown.on('press', function (ev) {
+        if (ev.pointerType === 'mouse') return;
+        onCanvasClick(ev.srcEvent);
+    });
 }

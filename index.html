@@ -12,7 +12,7 @@
 
 
     <header class="container header-container flex justify-space-between align-items-center">
-        <div class="logo">LOGO</div>
+        <div class="logo">MEMEGEN</div>
         <section class="header-buttons">
             <a class="button button-gallery selected" onclick="togglePages('gallery')">Gallery</a>
             <a class="button button-editor" onclick="togglePages('editor')">Editor</a>
@@ -50,7 +50,8 @@
     <main class="editor-container flex justify-space-even align-items-center display-none">
         <section class="canvas-container flex">
             <canvas class="align-self-center" id="canvas" width="476px" height="546px"
-                onmousedown="onCanvasClick(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event)"></canvas>
+                onmousedown="onCanvasClick(event)" onmouseup="onMouseUp()" onmousemove="onDrag(event)"
+                ontouchmove="event.preventDefault()" ontouchend="onMouseUp()"></canvas>
         </section>
         <section class="editor flex column align-items-center">
             <input class="text-input" type="text" placeholder="Add or select line to edit"
@@ -175,6 +176,7 @@
     <script src="js/meme-service.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/meme-share.js"></script>
+    <script src="js/hammer.min.js"></script>
 </body>
 
 </html>

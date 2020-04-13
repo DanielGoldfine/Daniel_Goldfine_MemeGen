@@ -344,12 +344,14 @@ function renderHiddenStckrs(stckrs) {
 
 function onCanvasClick(ev) {
 
-    gDragging.isMousDown = true;
-    gDragging.lastXpos = ev.offsetX;
-    gDragging.lastYpos = ev.offsetY;
+    const clickX = ev.offsetX;
+    const clickY = ev.offsetY;
 
-    const mX = ev.offsetX;
-    const mY = ev.offsetY;
+    gDragging.isMousDown = true;
+    gDragging.lastXpos = clickX;
+    gDragging.lastYpos = clickY;
+
+
     var memeObj = getMemeObj();
 
     // check if clicked on a line or clear line selected
@@ -362,10 +364,10 @@ function onCanvasClick(ev) {
             const width = gCtx.measureText(line.txt).width;
             const height = line.size;
 
-            if (mX >= line.posX - (width / 2) &&
-                mX <= line.posX + (width / 2) &&
-                mY >= line.posY - (height / 2) &&
-                mY <= line.posY + (height / 2)) {
+            if (clickX >= line.posX - (width / 2) &&
+                clickX <= line.posX + (width / 2) &&
+                clickY >= line.posY - (height / 2) &&
+                clickY <= line.posY + (height / 2)) {
 
                 if (memeObj.selectedLineIdx === idx) return;
 
@@ -394,10 +396,10 @@ function onCanvasClick(ev) {
         for (var idx = 0; idx < memeObj.stckrs.length; idx++) {
             var stckr = memeObj.stckrs[idx];
 
-            if (mX <= stckr.posX + stckr.width &&
-                mX >= stckr.posX &&
-                mY <= stckr.posY + stckr.height &&
-                mY >= stckr.posY) {
+            if (clickX <= stckr.posX + stckr.width &&
+                clickX >= stckr.posX &&
+                clickY <= stckr.posY + stckr.height &&
+                clickY >= stckr.posY) {
 
                 setStckrIdx(idx);
                 gIsStckrSelected = true;
