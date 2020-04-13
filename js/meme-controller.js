@@ -55,6 +55,8 @@ function togglePages(page) {
         elGalleryBtn.classList.add('selected');
         elEditorBtn.classList.remove('selected');
         elMyMemesBtn.classList.remove('selected');
+        gIsStckrSelected = false;
+        gIsTextSelected = false;
     } else if (page === 'editor') {
         elGallery.style.display = 'none';
         elEditor.style.display = 'flex';
@@ -62,6 +64,8 @@ function togglePages(page) {
         elGalleryBtn.classList.remove('selected');
         elEditorBtn.classList.add('selected');
         elMyMemesBtn.classList.remove('selected');
+        gIsStckrSelected = false;
+        gIsTextSelected = false;
     } else {
         elGallery.style.display = 'none';
         elEditor.style.display = 'none';
@@ -69,6 +73,9 @@ function togglePages(page) {
         elGalleryBtn.classList.remove('selected');
         elEditorBtn.classList.remove('selected');
         elMyMemesBtn.classList.add('selected');
+        gIsStckrSelected = false;
+        gIsTextSelected = false;
+        renderMyMemes();
     };
 }
 
@@ -486,6 +493,9 @@ function onShareCnavas() {
 }
 
 function onSaveCanvas() {
+    gIsTextSelected = false;
+    gIsStckrSelected = false;
+    renderCanvas();
     saveCanvasToStorage(gElCanvas);
 }
 
@@ -509,3 +519,27 @@ function clearSearchInput() {
     document.querySelector('.input-search').value = '';
 }
 
+function renderMyMemes() {
+    const savedMemes = getSavedMemes();
+    let elGallery = document.querySelector('.my-memes-grid')
+    let strHtmls = savedMemes.map(savedMeme => {
+        return `<img src="${savedMeme.thumbnail}" alt="meme-img" onclick="asignSavedMeme('${savedMeme.meme.id}')"></img>`
+    });
+    elGallery.innerHTML = strHtmls.join('');
+}
+
+function asignSavedMeme(savedMemeId) {
+    const savedMemeIdx = getSavedMemeIdx(savedMemeId);
+    const savedMemes = getSavedMemes();
+    const savedMeme = savedMemes[savedMemeIdx].meme;
+    assignMemeObj(savedMeme);
+    togglePages('editor');
+    renderCanvas();
+}
+
+function toggleNavModal() {
+    let elMobileBtn = document.querySelectorAll('.mobile-button');
+    Array.from(elMobileBtn).forEach(btn => {
+        btn.classList.toggle('open');
+    });
+}

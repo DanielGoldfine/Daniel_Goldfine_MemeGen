@@ -2,33 +2,33 @@
 
 @font-face {
     font-family: poppinslight;
-    src: url(/fonts/Poppins-Light.ttf);
+    src: url(../fonts/Poppins-Light.ttf);
     font-weight: lighter;
     font-style: normal;
 }
 
 @font-face {
     font-family: poppinsregular;
-    src: url(/fonts/Poppins-Regular.ttf);
+    src: url(../fonts/Poppins-Regular.ttf);
     font-style: normal;
 }
 
 @font-face {
     font-family: poppinsmedium;
-    src: url(/fonts/Poppins-Medium.ttf);
+    src: url(../fonts/Poppins-Medium.ttf);
     font-weight: medium;
     font-style: normal;
 }
 
 @font-face {
     font-family: poppinssemibold;
-    src: url(/fonts/Poppins-SemiBold.ttf);
+    src: url(../fonts/Poppins-SemiBold.ttf);
     font-style: normal;
 }
 
 @font-face {
     font-family: poppinsbolder;
-    src: url(/fonts/Poppins-ExtraBold.ttf);
+    src: url(../fonts/Poppins-ExtraBold.ttf);
     font-weight: bolder;
     font-style: normal;
 }
@@ -84,7 +84,33 @@ p {
 
 .header-container .header-buttons {
     padding-inline-end: 160px;
-    /* margin-inline-start: 43px; */
+}
+
+.mobile-nav {
+    margin-inline-end: 30px;
+    display: none;
+}
+
+.mobile-nav img {
+    width: 40px;
+    cursor: pointer;
+    margin-inline-start: 16px;
+}
+
+.mobile-nav .button {
+    background-color: none;
+    text-align: center;
+    font-size: .70rem;
+    width: 80px;
+    display: none;
+}
+
+.mobile-nav .open {
+    display: block;
+}
+
+.mobile-nav .button:nth-of-type(1) {
+    margin-inline-start: 8px;
 }
 
 .header-container .header-buttons a {
@@ -202,6 +228,7 @@ p {
 .imgs-grid img:hover {
     cursor: pointer;
     box-shadow: none;
+    opacity: .5;
 }
 
 .gallery-grid-container {
@@ -441,11 +468,31 @@ p {
 
 .my-memes-container {
     background-color: #383b42;
+    padding: 30px;
     border-radius: 10px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     max-width: 1243px;
     height: 80vh;
     display: none;
+    /* justify-content: center; */
+}
+
+.my-memes-container .my-memes-grid {
+    max-width: 1200px;
+    min-width: 250px;
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(3, 200px);
+}
+
+.my-memes-grid img {
+    border-radius: 15px;
+    box-shadow: 0px 3px 9px #000000ab;
+    width: 100%;
+    transition: .2s;
+    cursor: pointer;
+    border: 6px solid white;
 }
 
 /* FLEX *****************************************************************/
@@ -511,6 +558,18 @@ p {
 /* MEDIA QUERIES *****************************************************************/
 
 @media (max-width: 1190px) {
+    .editor-container {
+        flex-direction: column;
+        justify-content: end;
+    }
+    .editor-container .editor {
+        min-width: 480px;
+        margin-top: 16px;
+        margin-inline-start: 0;
+    }
+}
+
+@media (max-width: 1190px) {
     .gellery-filter {
         flex-direction: column;
         margin-bottom: 55px;
@@ -529,16 +588,24 @@ p {
         max-height: 500px;
         border-radius: 20px;
     }
-    
     .gallery-container .expand {
         height: 240px;
         justify-content: end;
         align-items: center;
     }
 }
+
+@media (max-width: 800px) {
+    .header-buttons {
+        display: none;
+    }
+    .mobile-nav {
+        margin-inline-end: 30px;
+        display: flex;
+    }
+}
 @media (max-width: 700px) {
     .gellery-filter {
-        flex-direction: column;
         margin-bottom: 55px;
     }
     .gellery-filter .search-bar .input-search {
@@ -546,7 +613,6 @@ p {
         width: 608px;
         border-radius: 23px;
     }
-
     .search-words-container .button-more {
         margin-inline-end: 0;
     }
@@ -554,9 +620,51 @@ p {
         max-height: 500px;
         border-radius: 20px;
     }
-    
     .gallery-container .expand {
         height: 240px;
+        justify-content: end;
+        align-items: center;
+    }
+    .search-words-container .search-words {
+        width: 395px;
+        grid-template-columns: repeat(auto-fit, minmax(50px, 50px));
+        grid-template-rows: 45px 45px 45px;
+    }
+}
+
+.search-words p {
+    width: 50px;
+}
+
+@media (max-width: 640px) {
+    .gellery-filter .search-bar .input-search {
+        width: 505px;
+    }
+    .header-container .logo {
+        padding-inline-start: 35px;
+    }
+}
+
+@media (max-width: 555px) {
+    .gellery-filter .search-bar {
+        width: 400px;
+    }
+    .search-words-container {
+        flex-direction: column;
+        justify-content: end;
+    }
+    .search-words-container .search-words {
+        height: 50px;
+        margin-bottom: 16px;
+        margin-inline-end: 0px;
+    }
+    .search-words-container .expand {
+        height: 400px;
+        border-radius: 20px;
+        padding-top: 20px;
+    }
+    .gallery-container .expand {
+        height: 270px;
         justify-content: end;
         align-items: center;
     }

@@ -141,7 +141,7 @@ var gImgs = [{
 }];
 
 const KEY = 'getCanvass';
-var gSavedCanvass = [];
+var gSavedMemes = [1,2,3,4];
 var gStckrs = [];
 var gStckrsIdx = 0;
 var gStckrsDspl = [];
@@ -157,6 +157,7 @@ function init() {
     initStckrsDispl(gStckrs);
     renderHiddenStckrs(gStckrs);
     renderStickers();
+    assignSavedCanvass()
 }
 
 function createGStckrs(num) {
@@ -172,6 +173,11 @@ function initStckrsDispl(stckrs) {
     for (let i = 0; i < 4; i++) {
         gStckrsDspl.push(stckrs[i]);
     }
+}
+
+function assignSavedCanvass() {
+    var storedCanvass = LoadFromLocalStorage(KEY);
+    gSavedMemes = (storedCanvass) ? storedCanvass : [];
 }
 
 function scrollStickers(direction) {
@@ -210,8 +216,17 @@ function getMemeObj() {
     return gMeme;
 }
 
+function getSavedMemes() {
+    return gSavedMemes;
+}
+
 function getKeywords() {
     return gKeywords;
+}
+
+function getSavedMemeIdx(savedMemeId) {
+    let idx = gSavedMemes.findIndex(savedMeme => savedMeme.meme.id === savedMemeId)
+    return idx;
 }
 
 function getStckrIdx(stckrId) {
@@ -231,6 +246,10 @@ function createMemeObj(imgId) {
         canvasW: null,
         canvasH: null
     };
+}
+
+function assignMemeObj(savedMeme) {
+    gMeme = savedMeme;
 }
 
 function createTextLine(posX, posY, font) {
@@ -364,23 +383,24 @@ function submitSearch(word) {
 
 function saveCanvasToStorage(canvas) {
     let thiscanvasId = gMeme.id;
-    let existingCanvasIdx = null;
+    let existingCanvasIdx;
     let dataToSave = {
         meme: gMeme,
         thumbnail: canvas.toDataURL()
     };
-
-    for (var i = 0; i < gSavedCanvass.length; i++) {
-        if (gSavedCanvass[i].meme.id === thiscanvasId) {
-            existingCanvasIdx = i;
-            break;
+    if (gSavedMemes.length > 0) {
+        for (var i = 0; i < gSavedMemes.length; i++) {
+            if (gSavedMemes[i].meme.id === thiscanvasId) {
+                existingCanvasIdx = i;
+                break;
+            };
         };
     };
 
-    if (existingCanvasIdx !== null) {
-        gSavedCanvass.splice(existingCanvasIdx, 1, dataToSave);
+    if (existingCanvasIdx) {
+        gSavedMemes.splice(existingCanvasIdx, 1, dataToSave);
     } else {
-        gSavedCanvass.push(dataToSave);
+        gSavedMemes.push(dataToSave);
     };
-    saveToLocalStorage(KEY, gSavedCanvass);
+    saveToLocalStorage(KEY, gSavedMemes);
 }
